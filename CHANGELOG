@@ -1,0 +1,73 @@
+-------------------
+Version 0.3 (beta):
+-------------------
+
+Breaking changes:
+- Strings containing non-ASCII characters are now printed in hexadecimal
+  format.
+
+New features:
+- Added support for encrypted files.
+- Added validation of content streams.
+- Added the 'findref' command to find all references to an object.
+- Added the 'findname' command to find all occurrences of a PDF name.
+- Added --merge-content-stream option to the 'cleanup' command to merge content
+  stream arrays in pages.
+- Added --simplify-info option to the 'cleanup' command to remove non-standard
+  fields from the /Info dictionary.
+- Added --remove-ptex option to the 'cleanup' command to recursively remove all
+  dictionary keys starting with '/PTEX.'.
+- Added --allow-nonascii-in-names option to allow names to contain non-ASCII
+  characters instead of the corresponding escape sequence.
+- Added --allow-overlaps option to allow several objects to overlap in a file.
+- Added --xref-stream-default-zero option to use a default value of 0 when the
+  last field is not present in xref stream entries.
+- When available, the 'stats' command also outputs main metadata from the /Info
+  dictionary (/Producer, /Creator, /CreationDate and /ModDate) and /Encrypt
+  dictionary (/V, /R, /U, /O, /ID).
+
+Improvements:
+- Added type checking of functions (see PDF reference 7.10).
+
+Misc:
+- Improved error handling.
+- Improved implementation of --undefined-ref-as-null option.
+
+-------------------
+Version 0.2 (beta):
+-------------------
+
+Breaking changes:
+- Removed the parameter --stream-errors from the 'extract' command. This
+  parameter was not used in the code.
+- Changed the parameters of the 'object' command for easier extraction of
+  streams: removed --relax-streams and replaced --decode-streams by --raw-stream
+  and --decoded-stream.
+
+API Changes:
+- Split the PDFObject module into DirectObject and IndirectObject modules. This
+  design enforces the semantics of direct and indirect objects.
+- Created the PDFStream module to encapsulate operations on streams and ensure
+  consistency between encoded and decoded data.
+
+New features:
+- Added support for ASCII85 and RunLength stream filters.
+- Added --rencode-streams option to the 'cleanup' command to reencode all
+  streams with a chosen filter.
+
+Bugfixes:
+- Use open_in_bin and open_out_bin instead of open_in and open_out. Suggested by
+  Chimrod.
+- Changed the minimum allowed integer to -2^31. Reported by Chimrod.
+- Allowed to use indirect objects as stream parameters (/Length, /Filter or
+  /DecodeParms) with the relaxed parser. Suggested by Chimrod.
+
+Misc:
+- Use standard exception Exit where relevant.
+- Use Buffer module instead of string concatenation to reduce complexity.
+
+-------------------
+Version 0.1 (beta):
+-------------------
+
+- Initial public release.
